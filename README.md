@@ -47,65 +47,31 @@ $$ACF = R_{xx}(\tau) = l FT [S_{xx}(\omega)] = \frac{1}{2 \pi} \int_{-\infty}^{\
 ### Program:
 
 ```sci
-function fx = pdfx(u)
-    z = 9*(1+u)^2;
-    fx = u*z;
-endfunction
-a = 0;
-b = 1;
-EX = intg(a, b, pdfx);
-function fy = pdfy(v)
-    z = 9*(1+v)^2;
-    fy = v*z;
-endfunction
-EY = intg(a, b, pdfy);
+t=0:0.01:4*%pi;
+x=sin(4*t)+cos(2*t);
+subplot(3,2,1);
+plot(x);
+au=xcorr(x,x);
+subplot(3,2,2);
+plot(au);
+v=fft(au);
+subplot(3,2,3);
+plot(abs(v));
+fw=fft(x);
+subplot(3,2,4);
+plot(fw);
+fw2=(abs(fw)).^2;
+subplot(3,2,5);
+plot(fw2);
 
-disp("1)Mean of X =");
-disp(EX);
-
-disp("2)Mean of Y =");
-disp(EY);
-
-function p = f1(u)
-    q = 5*(1-u)^2;
-    p = u^2 * q;
-endfunction
-
-a = 0;
-b = 1;
-
-EX2 = intg(a, b, f1);
-
-function r = f2(v)
-    s = 10*(1+v)^2;
-    r = v^2 * s;
-endfunction
-
-EY2 = intg(a, b, f2);
-
-vX2 = EX2 - (EX)^2;
-vY2 = EY2 - (EY)^2;
-
-disp("3) Variance of X =");
-disp(vX2);
-
-disp("4)Variance of Y =");
-disp(vY2);
-
-x= input("type in the reference sequence=");
-y= input("type in the second sequence=");
-S1=max(size(y))-1;
-S2=max(size(x))-1;
-r=corr(x,y,S1);
-plot2d3('gnn',r);
 
 ```
 
 ---
 
 ### Output:
+<img width="1916" height="1031" alt="Screenshot 2025-11-18 051425" src="https://github.com/user-attachments/assets/2936fa7f-d8f1-4982-b999-f38437d6c778" />
 
-<img width="1919" height="1022" alt="Screenshot 2025-11-18 045939" src="https://github.com/user-attachments/assets/61f5051a-65b2-4ae6-84e5-74edf759b614" />
 
 
 ---
